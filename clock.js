@@ -1,4 +1,4 @@
-import { setTimer, capitalize } from "./helpers.js";
+import { capitalize } from "./helpers.js";
 
 export class ClockSettings {
   #started
@@ -42,55 +42,77 @@ export class ClockSettings {
 
     // Private methods
     if (this.#config.initialize !== false) {
-      this.initialize();
+      this.#initialize();
     }
   }
 
   // Initialize the clock
-  initialize() {
+  #initialize() {
     this.defineInterval();
 
     // Return function to stop clock if endDate has already passed
-    if (this.hasEnded()) {
-      return this.outOfInterval();
+    if (this.#hasEnded()) {
+      return this.#outOfInterval();
     }
 
-    this.run();
+    this.#countdownBegin();
   }
 
   // Convert a date into seconds
-  seconds(date) {
+  #seconds(date) {
     return date.getTime() / 1000;
   }
 
   // Return if countdown has started yet
-  isStarted() {
-    return this.seconds(new Date()) >= this.seconds(this.#config.startDate);
+  
+  #hasStarted() {
+    return this.#seconds(new Date()) >= this.#seconds(this.#config.startDate);
   }
 
   // Return if countdown has ended yet
-  hasEnded() {
-    return this.seconds(new Date()) >= this.seconds(this.#config.endDate);
+  #hasEnded() {
+    return this.#seconds(new Date()) >= this.#seconds(this.#config.endDate);
+  }
+
+  #setTimer(object, time) {
+    setInterval(() => {
+      time--;
+
+    // Time has run out
+      if (time <= 0) {
+        clearInterval(object);
+        object.#outOfInterval();
+        object.#callback("end");
+      } else if (object.#hasStarted()) {
+          if (!object.#started) {
+            object.#callback("start");
+            object.#started = true;
+          }
+
+        object.#display(time);
+      }
+    }, this.#interval);
   }
 
   // Begin the countdown
-  countdownBegin() {
+  #countdownBegin() {
     let that = this;
-    let sec = Math.abs(this.seconds(this.#config.endDate) - this.seconds(new Date()));
+    let sec = Math.abs(this.#seconds(this.#config.endDate) - this.#seconds(new Date()));
     let timer;
 
     // Initial clock display before first interval (tick)
-    if (this.isStarted()) {
-      this.display(sec);
+    if (this.#hasStarted()) {
+      this.#display(sec);
     } else {
-      this.outOfInterval();
+      this.#outOfInterval();
     }
 
-    timer = setTimer(that, sec);
+    timer = this.#setTimer(that, sec);
   };
 
+
   // Display the countdown
-  display(sec) {
+  #display(sec) {
     let output = this.#config.msgPattern;
 
     // Loop through the patterns
@@ -111,7 +133,7 @@ export class ClockSettings {
   };
 
   // Define the interval (ticks) for page refresh
-  defineInterval() {
+  #defineInterval() {
     for (let pattern in this.#patterns) {
       let currentPattern = this.#patterns[pattern - 1];
 
@@ -122,7 +144,7 @@ export class ClockSettings {
     }
   };
 
-  outOfInterval() {
+  #outOfInterval() {
     let message = new Date() < this.#config.startDate ? this.#config.startMessage : this.#config.endMessage;
 
     for (let el in this.#selector) {
@@ -132,7 +154,7 @@ export class ClockSettings {
     }
   };
 
-  callback(event) {
+  #callback(event) {
     let standardizedEvent = capitalize(event);
 
     // onStart callback
