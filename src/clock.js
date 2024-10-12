@@ -7,11 +7,15 @@ class Clock {
     dateStart = new Date(),
     dateEnd = new Date(new Date().getTime() + (24 * 60 * 60 * 1000)),
     selector = "#clock",
-    msgBefore = "Be ready!",
-    msgAfter = "It's over, sorry folks!",
+    msgBefore = `Countdown will begin on ${this.dateStart}!`,
+    msgAfter = "Countdown has ended.",
     msgPattern = "{days} days, {hours} hours, {minutes} minutes and {seconds} seconds left.",
-    onStart = null,
-    onEnd = null,
+    onStart = function () {
+      console.log("Countdown has started.");
+    },
+    onEnd = function () {
+      console.log("Countdown has ended.");
+    },
     leadingZeros = false,
     initialize = true
   } = {}) {
