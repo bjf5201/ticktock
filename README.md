@@ -17,12 +17,12 @@ new Clock();
 // Instanciating a custom countdown clock
 var countdownClock = new Clock({
     name: 'Christmas Clock',
-    selector: '#timer',
-    startMessage: "Will start at Christmas!",
+    selector: '#timer', #default selector is #clock
+    startMessage: "Will on December first at midnight!",
     endMessage: "Happy New Years!",
-    msgPattern: "{days} days, {hours} hours and {minutes} minutes before new year!",
-    startDate: new Date('2024/12/25 12:00'),
-    endDate: new Date('Jan 1, 2025 12:00')
+    msgPattern: "{days} days, {hours} hours, {minutes} minutes, and {seconds} seconds before New Years!",
+    startDate: new Date('2024/12/01 12:00'),
+    endDate: new Date('Jan 1, 2025 12:00:00')
 });
 ```
 
