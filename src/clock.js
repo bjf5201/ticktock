@@ -10,12 +10,8 @@ class Clock {
     msgBefore = `Countdown will begin on ${this.dateStart}!`,
     msgAfter = "Countdown has ended.",
     msgPattern = "{days} days, {hours} hours, {minutes} minutes and {seconds} seconds left.",
-    onStart = function () {
-      console.log("Countdown has started.");
-    },
-    onEnd = function () {
-      console.log("Countdown has ended.");
-    },
+    onStart = () => console.log("Countdown has started."),
+    onEnd = () => console.log("Countdown has ended."),
     leadingZeros = false,
     initialize = true
   } = {}) {
