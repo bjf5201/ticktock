@@ -3,10 +3,10 @@ ticktock
 
 *ticktock* is a little yet customizable countdown made in pure JavaScript.
 
-* [JSHint](http://www.jshint.com/) compliant
-* [Jasmine](https://jasmine.github.io/) powered-tests
+## Features
+* [Jest](https://jestjs.io/) powered-tests
 * ~2.2kb (~1kb once gzipped)
-* No dependency
+* Zero-dependencies
 
 ## Examples
 
