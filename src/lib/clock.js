@@ -1,6 +1,7 @@
 import { capitalize } from "./helpers.js";
 
 class Clock {
+  #config;
   constructor({
     // TODO: Make it so that Date constructor is created automatically and user
     // does not have to implement it themselves.
@@ -15,7 +16,7 @@ class Clock {
     leadingZeros = false,
     initialize = true
   } = {}) {
-    this.config = {
+    this.#config = {
       dateStart,
       dateEnd,
       selector,
@@ -29,7 +30,7 @@ class Clock {
     };
 
     this.started = false;
-    this.selector = document.querySelectorAll(this.config.selector);
+    this.selector = document.querySelectorAll(this.#config.selector);
     this.interval = 1000;
     this.patterns = [
       { pattern: "{years}", secs: 31536000 },
@@ -41,7 +42,7 @@ class Clock {
       { pattern: "{seconds}", secs: 1 }
     ];
 
-    if (this.config.initialize !== false) {
+    if (this.#config.initialize !== false) {
       this.#initialize();
     }
   }
@@ -61,15 +62,15 @@ class Clock {
   }
 
   #hasStarted() {
-    return this.#seconds(new Date()) >= this.#seconds(this.config.dateStart);
+    return this.#seconds(new Date()) >= this.#seconds(this.#config.dateStart);
   }
 
   #isOver() {
-    return this.#seconds(new Date()) >= this.#seconds(this.config.dateEnd);
+    return this.#seconds(new Date()) >= this.#seconds(this.#config.dateEnd);
   }
 
   #startClock() {
-    let sec = Math.abs(this.#seconds(this.config.dateEnd) - this.#seconds(new Date()));
+    let sec = Math.abs(this.#seconds(this.#config.dateEnd) - this.#seconds(new Date()));
 
     if (this.#hasStarted()) {
       this.#display(sec);
@@ -95,12 +96,12 @@ class Clock {
   }
 
   #display(sec) {
-    let output = this.config.msgPattern;
+    let output = this.#config.msgPattern;
 
     for (const { pattern, secs } of this.patterns) {
-      if (this.config.msgPattern.includes(pattern)) {
+      if (this.#config.msgPattern.includes(pattern)) {
         const number = Math.floor(sec / secs);
-        const displayed = this.config.leadingZeros && number <= 9 ? `0${number}` : number;
+        const displayed = this.#config.leadingZeros && number <= 9 ? `0${number}` : number;
         sec -= number * secs;
         output = output.replace(pattern, displayed);
       }
@@ -114,7 +115,7 @@ class Clock {
   #defineInterval() {
     for (let i = this.patterns.length - 1; i >= 0; i--) {
       const { pattern, secs } = this.patterns[i];
-      if (this.config.msgPattern.includes(pattern)) {
+      if (this.#config.msgPattern.includes(pattern)) {
         this.interval = secs * 1000;
         return;
       }
@@ -122,7 +123,7 @@ class Clock {
   }
 
   #outOfInterval() {
-    const message = new Date() < this.config.dateStart ? this.config.msgBefore : this.config.msgAfter;
+    const message = new Date() < this.#config.dateStart ? this.#config.msgBefore : this.#config.msgAfter;
     this.selector.forEach(el => {
       if (el.innerHTML !== message) {
         el.innerHTML = message;
@@ -133,12 +134,12 @@ class Clock {
   #callback(event) {
     const e = capitalize(event);
 
-    if (typeof this.config[`on${e}`] === "function") {
-      this.config[`on${e}`]();
+    if (typeof this.#config[`on${e}`] === "function") {
+      this.#config[`on${e}`]();
     }
 
     if (typeof jQuery !== "undefined") {
-      jQuery(this.config.selector).trigger(`countdown${e}`);
+      jQuery(this.#config.selector).trigger(`countdown${e}`);
     }
   }
 }

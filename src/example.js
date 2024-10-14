@@ -1,4 +1,4 @@
-import Clock from "./clock.js";
+import Clock from "./lib/main.js";
 
 const birthdayClock = new Clock({
   selector: "#birthday",
