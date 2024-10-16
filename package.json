@@ -18,6 +18,8 @@
     "/dist"
   ],
   "scripts": {
+    "sass-dev": "sass --watch --update --style=expanded sass:dist",
+    "sass-prod": "rimraf dist/**/*.css && rimraf dist/**/*.css.map && sass --no-source-map --style=compressed sass:dist",
     "test": "node --experimental-vm-modules node/jest/bin/jest.js --verbose --coverage --coverageDirectory=./coverage ./spec",
     "test:watch": "node --experimental-vm-modules node/jest/bin/jest.js --watch --verbose ./spec",
     "build": "rimraf dist/**/*.js && tsc -p tsconfig.json && tsc -p tsconfig-cjs.json && ./scripts/fixtypes",
@@ -34,6 +36,7 @@
     "jest": "29.7.0",
     "jest-cli": "29.7.0",
     "rimraf": "6.0.1",
+    "sass": "1.79.5",
     "ts-node": "10.9.2",
     "typescript": "5.6.2"
   },

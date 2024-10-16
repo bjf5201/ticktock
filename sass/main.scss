@@ -1,0 +1,153 @@
+// COLOR VARIABLES
+$midnight: #0b3061;
+$blue: #0c5db9;
+$sky: #2fa2e1;
+$pale-blue: #f0f8fe;
+$black: #000;
+$light-grey: #efefef;
+
+// FONT VARIABLES
+$body: Arial, sans-serif;
+$mono: Consolas, "Andale Mono WT", "Andale Mono", "Lucida Console", "Lucida Sans Typewriter", "DejaVu Sans Mono", "Bitstream Vera Sans Mono", "Liberation Mono", "Nimbus Mono L", Monaco, "Courier New", Courier, monospace;
+
+$body-text: $body;
+
+// NAMED VARIABLES
+$text: $pale-blue;
+$background-color: $midnight;
+$countdown: $sky;
+$code-text: $black;
+$inline-code: $sky;
+$link-text: $blue;
+$codeblock-background: $light-grey;
+
+html {
+  height: 100%;
+  background-color: $background-color;
+  font-family: $body-text;
+}
+
+body {
+  padding: 0.5em;
+  width: 100%;
+  color: $pale-blue;
+  overflow-x: hidden;
+}
+
+h3 {
+  margin: .5em;
+}
+
+pre[data-lang]::before { 
+  content: attr(data-lang);
+  display: block;
+  border-radius: 4px;
+  background: #333;
+  font-family: Arial;
+  text-shadow: none;
+  color: $sky;
+  padding: 0 1em;
+}
+
+pre, 
+code {
+  border: 1px solid rgba(0,0,0,.1);
+  border-radius: 4px;
+  color: $code-text;
+  font-family: $mono;
+  white-space: pre-wrap;
+  display: inline-block;
+}
+
+pre {
+  background: $codeblock-background;
+  border: 1px solid rgba(0,0,0,.1);
+  text-align: left;
+  padding: 0 1em;
+  margin: 0 1em;
+  border-radius: 4px;
+  text-shadow: 0 1px rgba(255, 255, 255, .75);
+  line-height: 1.4;
+  font-size: .9em;
+}
+
+pre code {
+  background: none;
+  border: none;
+  border-radius: 0;
+  color: $code-text;
+  word-break: break-all;
+}
+
+code {
+  color: $inline-code;
+  padding: .3em;
+  word-break: break-all;
+}
+
+a, a:link, a:visited {
+  text-decoration: underline dashed;
+  color: $text;
+}
+
+a:hover, a:active {
+  background-color: $blue;
+  text-decoration: none;
+}
+
+.countdown {
+  color: $text;
+  background: $blue;
+  text-align: center;
+  padding: .5em 0em;
+  font-size: 1.3em;
+  border-radius: 3px;
+  padding: 1em;
+  margin: 0 auto;
+  width: 100%;
+  max-width: 600px;
+}
+
+.codeblock {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: center;
+  gap: 2em;
+}
+
+.codeblock--individual {
+  height: 300px;
+  max-height: 500px;
+  margin: 0;
+  padding: 0;
+}
+
+.codeblock--individual1 {
+  height: 100px;
+  max-height: 500px;
+  margin: 0;
+  padding: 0;
+}
+
+.codeblock--individual2 {
+  height: 220px;
+  max-height: 500px;
+  margin: 0;
+  padding: 0;
+}
+
+.examples--clock {
+  width: 90%;
+  max-width: 1000px;
+  border: 3px solid $blue;
+  border-radius: 3px;
+  margin: 1em auto;
+  padding: .5em .5em;
+}
+
+.title a {
+  text-decoration: none;
+  color: $sky;
+  font-size: 1.5em;
+}
