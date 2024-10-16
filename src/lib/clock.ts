@@ -2,13 +2,17 @@ import { capitalize } from "./helpers.js";
 
 class Clock {
   #config;
+  #started;
+  #selector;
+  #interval;
+  #patterns;
   constructor({
     // TODO: Make it so that Date constructor is created automatically and user
     // does not have to implement it themselves.
     dateStart = new Date(),
     dateEnd = new Date(new Date().getTime() + (24 * 60 * 60 * 1000)),
     selector = "#clock",
-    msgBefore = `Countdown will begin on ${this.dateStart}!`,
+    msgBefore = `Countdown will begin on ${this.#config.dateStart}!`,
     msgAfter = "Countdown has ended.",
     msgPattern = "{days} days, {hours} hours, {minutes} minutes and {seconds} seconds left.",
     onStart = () => console.log("Countdown has started."),
@@ -29,10 +33,10 @@ class Clock {
       initialize
     };
 
-    this.started = false;
-    this.selector = document.querySelectorAll(this.#config.selector);
-    this.interval = 1000;
-    this.patterns = [
+    this.#started = false;
+    this.#selector = document.querySelectorAll(this.#config.selector);
+    this.#interval = 1000;
+    this.#patterns = [
       { pattern: "{years}", secs: 31536000 },
       { pattern: "{months}", secs: 2628000 },
       { pattern: "{weeks}", secs: 604800 },
@@ -57,7 +61,7 @@ class Clock {
     this.#startClock();
   }
 
-  #seconds(date) {
+  #seconds(date:Date) {
     return date.getTime() / 1000;
   }
 
@@ -86,19 +90,19 @@ class Clock {
         this.#outOfInterval();
         this.#callback("end");
       } else if (this.#hasStarted()) {
-        if (!this.started) {
+        if (!this.#started) {
           this.#callback("start");
-          this.started = true;
+          this.#started = true;
         }
         this.#display(sec);
       }
-    }, this.interval);
+    }, this.#interval);
   }
 
   #display(sec) {
     let output = this.#config.msgPattern;
 
-    for (const { pattern, secs } of this.patterns) {
+    for (const { pattern, secs } of this.#patterns) {
       if (this.#config.msgPattern.includes(pattern)) {
         const number = Math.floor(sec / secs);
         const displayed = this.#config.leadingZeros && number <= 9 ? `0${number}` : number;
@@ -107,16 +111,16 @@ class Clock {
       }
     }
 
-    this.selector.forEach(el => {
+    this.#selector.forEach(el => {
       el.innerHTML = output;
     });
   }
 
   #defineInterval() {
-    for (let i = this.patterns.length - 1; i >= 0; i--) {
-      const { pattern, secs } = this.patterns[i];
+    for (let i = this.#patterns.length - 1; i >= 0; i--) {
+      const { pattern, secs } = this.#patterns[i];
       if (this.#config.msgPattern.includes(pattern)) {
-        this.interval = secs * 1000;
+        this.#interval = secs * 1000;
         return;
       }
     }
@@ -124,7 +128,7 @@ class Clock {
 
   #outOfInterval() {
     const message = new Date() < this.#config.dateStart ? this.#config.msgBefore : this.#config.msgAfter;
-    this.selector.forEach(el => {
+    this.#selector.forEach(el => {
       if (el.innerHTML !== message) {
         el.innerHTML = message;
       }
@@ -138,8 +142,8 @@ class Clock {
       this.#config[`on${e}`]();
     }
 
-    if (typeof jQuery !== "undefined") {
-      jQuery(this.#config.selector).trigger(`countdown${e}`);
+    if (typeof globalThis.jQuery !== "undefined") {
+      globalThis.jQuery(this.#selector).trigger(`countdown${e}`);
     }
   }
 }
