@@ -1,160 +1,229 @@
-// COLOR VARIABLES
-$midnight: #0b3061;
-$blue: #0c5db9;
-$sky: #2fa2e1;
-$pale-blue: #f0f8fe;
-$black: #000;
-$light-grey: #efefef;
+// VARIABLES
+// Colors
+$coral: #faa978;
+$mint: #40d5ac;
+$midnight-blue: #020146;
+$green: #0cb64a;
+$purple: #be5f65;
+$grey: #efefef;
+$color-primary: $coral;
+$color-secondary: $purple;
+$color-light: $grey;
+$color-dark: $midnight-blue;
+$color-codebg: $midnight-blue;
 
-// FONT VARIABLES
-$body: Arial, sans-serif;
-$mono: Consolas, "Andale Mono WT", "Andale Mono", "Lucida Console", "Lucida Sans Typewriter", "DejaVu Sans Mono", "Bitstream Vera Sans Mono", "Liberation Mono", "Nimbus Mono L", Monaco, "Courier New", Courier, monospace;
+// Fonts
+$arial: 'Fira Sans', sans-serif;
+$mono: SFMono-Regular, Consolas, "Andale Mono WT", "Andale Mono", "Lucida Console", "Lucida Sans Typewriter", "DejaVu Sans Mono", "Bitstream Vera Sans Mono", "Liberation Mono", "Nimbus Mono L", Monaco, Menlo, "Courier New", Courier, monospace;
+$font-family: $arial;
+$code-font-family: $mono;
 
-$body-text: $body;
-
-// NAMED VARIABLES
-$text: $pale-blue;
-$background-color: $midnight;
-$countdown: $sky;
-$code-text: $black;
-$inline-code: $sky;
-$link-text: $blue;
-$codeblock-background: $light-grey;
-
-html {
-  height: 100%;
-  background-color: $background-color;
-  font-family: $body-text;
-}
+// Breakpoints
+$breakpoint-small: 650px;
+$breakpoint-medium: 885px;
+$breakpoint-large: 1200px;
 
 body {
-  padding: 0.5em;
-  width: 100%;
-  color: $pale-blue;
+  font-family: $font-family;
+  background-color: $color-light;
+  color: $color-dark;
+  margin: 0;
+  padding: 10px;
   overflow-x: hidden;
 }
 
-h3 {
-  margin: .5em;
+a, a:link, a:active {
+  color: $coral;
+  text-decoration: underline 3px;
+  &:hover, &:focus {
+    color: $mint;
+    text-decoration: none;
+    background: $color-light;
+  }
 }
 
-pre[data-lang]::before { 
-  content: attr(data-lang);
-  display: block;
-  border-radius: 4px;
-  background: #333;
-  font-family: Arial;
-  text-shadow: none;
-  color: $sky;
-  padding: 0 1em;
+header {
+  text-align: center;
+  background-color: $color-primary;
+  padding: 20px;
+  h1 {
+    font-size: 2em;
+  }
+  a, a:link, a:active {
+      color: #fff;
+      text-decoration: underline .5px $mint;
+      &:hover, &:focus {
+        color: #fff;
+        background: $coral;
+        text-decoration: underline dashed 3px $mint;
+      }
+    }
+  p {
+    font-size: 1.2em;
+    color: #fff;
+  }
+}
+// Content centering and responsiveness
+section.examples, section.options {
+  max-width: 100%;
+  margin: 0 auto;
+  margin-top: .8em;
+  padding: 20px;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+// Clock examples centering
+.examples--clock {
+  background-color: $color-light;
+  padding: 15px;
+  margin: 20px 0;
+  border-left: 5px solid $color-primary;
+  text-align: center;
+  h3 {
+    color: $color-primary;
+    font-size: 1.5em;
+  }
+  .codeblock {
+    display: flex;
+    justify-content: space-evenly;
+    flex-direction: column;
+    align-items: start;
+    max-width: 95%;
+    gap: .5em;
+    pre[data-lang]::before { 
+      content: attr(data-lang); 
+      display: block;
+      background: $mint;
+      font-family: $font-family;
+      font-style: italic;
+      padding: 3px;
+      padding-left: 10px;
+      border-radius: 2px;
+      margin: 0;
+      margin-bottom: 10px;
+    }
+    pre {
+      background-color: $color-dark;
+      color: #fff;
+      padding: 10px;
+      border-radius: 3px;
+      margin-bottom: 10px;
+      width: 100%;
+      max-width: 100%;
+      text-align: left;
+      white-space: pre-wrap;
+      tab-size: 2;
+      font-family: $code-font-family;
+    }
+  }
 }
 
-pre, 
-code {
-  border: 1px solid rgba(0,0,0,.1);
-  border-radius: 4px;
-  color: $code-text;
-  font-family: $mono;
-  white-space: pre-wrap;
-  display: inline-block;
-}
-
-pre {
-  background: $codeblock-background;
-  border: 1px solid rgba(0,0,0,.1);
-  text-align: left;
-  padding: 0 1em;
-  margin: 0 1em;
-  border-radius: 4px;
-  text-shadow: 0 1px rgba(255, 255, 255, .75);
-  line-height: 1.4;
-  font-size: .9em;
-}
-
-pre code {
-  background: none;
-  border: none;
-  border-radius: 0;
-  color: $code-text;
-  word-break: break-all;
-}
-
-code {
-  color: $inline-code;
-  padding: .3em;
-  word-break: break-all;
-}
-
-a, a:link, a:visited {
-  text-decoration: underline dashed;
-  color: $text;
-}
-
-a:hover, a:active {
-  background-color: $blue;
-  text-decoration: none;
+.options--list {
+  margin-top: 2em;
+  border-top: 1px solid $color-secondary;
+  h3 code {
+    background-color: $mint;
+    color: $color-dark;
+  }
+  code {
+    color: $color-secondary;
+  }
 }
 
 .countdown {
-  color: $text;
-  background: $blue;
+  background: transparent;
+  color: $color-secondary;
+  padding: .5em;
+  border: 3px solid $color-secondary;
+  border-radius: 3px;
+  font-size: 1em;
+  letter-spacing: .05em;
+  font-weight: 600;
   text-align: center;
-  padding: .5em 0em;
-  font-size: 1.3em;
-  border-radius: 3px;
-  padding: 1em;
-  margin: 0 auto;
-  width: 100%;
-  max-width: 600px;
+  padding: 1em 0;
 }
 
-.codeblock {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-evenly;
-  align-items: center;
-  gap: 2em;
+.bottom-link {
+  margin-top: .7em;
+  text-align: center;
+  a, a:link, a:active {
+  color: $coral;
+  text-decoration: underline 3px;
+  &:hover, &:focus {
+    color: $mint;
+    text-decoration: none;
+    background: $color-light;
+    }
+  }
 }
 
-.codeblock--individual {
-  height: 300px;
-  max-height: 500px;
-  margin: 0;
-  padding: 0;
+// Medium sized screens
+@media (min-width: $breakpoint-small) and (max-width: $breakpoint-medium) {
+  section.examples, section.options {
+    max-width: 80%;
+  }
+
+  .examples--clock {
+    .codeblock {
+      flex-direction: column;
+      max-width: 95%;
+      gap: .5em;
+    }
+
+    pre {
+      max-width: 45%;
+    }
+  }
+
+  .countdown {
+    font-size: 1.1em;
+    letter-spacing: .1em;
+  }
 }
 
-.codeblock--individual1 {
-  height: 100px;
-  max-height: 500px;
-  margin: 0;
-  padding: 0;
+@media (min-width: $breakpoint-medium) {
+  section.examples, section.options {
+    max-width: 70%;
+  }
+
+  .examples--clock {
+    .codeblock {
+      flex-direction: row;
+      max-width: 95%;
+      gap: .5em;
+    }
+
+    pre {
+      max-width: 45%;
+    }
+  }
+
+  .countdown {
+    font-size: 1.3em;
+    letter-spacing: .1em;
+  }
 }
 
-.codeblock--individual2 {
-  height: 220px;
-  max-height: 500px;
-  margin: 0;
-  padding: 0;
-}
+@media (min-width: $breakpoint-large) {
+  section.examples, section.options {
+    max-width: 60%;
+  }
 
-.examples--clock {
-  width: 90%;
-  max-width: 1000px;
-  border: 3px solid $blue;
-  border-radius: 3px;
-  margin: 1em auto;
-  padding: .5em .5em;
-}
+  .examples--clock {
+    .codeblock {
+      flex-direction: row;
+      max-width: 95%;
+      gap: .5em;
+    }
 
-.title a {
-  text-decoration: none;
-  color: $sky;
-  font-size: 1.5em;
-}
+    pre {
+      max-width: 45%;
+    }
+  }
 
-@media screen and (min-width: 1200px) {
-  body {
-    max-width: 960px;
-    margin: 0 auto;
+  .countdown {
+    font-size: 1.4em;
+    letter-spacing: .1em;
   }
 }
