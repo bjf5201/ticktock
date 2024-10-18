@@ -1,4 +1,4 @@
-import Clock from '../src/clock.js';
+import Clock from '../src/lib/clock.js';
 import jest from 'jest';
 
 describe('Clock', () => {

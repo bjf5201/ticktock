@@ -1,0 +1,229 @@
+// VARIABLES
+// Colors
+$coral: #faa978;
+$mint: #40d5ac;
+$midnight-blue: #020146;
+$green: #0cb64a;
+$purple: #be5f65;
+$grey: #efefef;
+$color-primary: $coral;
+$color-secondary: $purple;
+$color-light: $grey;
+$color-dark: $midnight-blue;
+$color-codebg: $midnight-blue;
+
+// Fonts
+$arial: 'Fira Sans', sans-serif;
+$mono: SFMono-Regular, Consolas, "Andale Mono WT", "Andale Mono", "Lucida Console", "Lucida Sans Typewriter", "DejaVu Sans Mono", "Bitstream Vera Sans Mono", "Liberation Mono", "Nimbus Mono L", Monaco, Menlo, "Courier New", Courier, monospace;
+$font-family: $arial;
+$code-font-family: $mono;
+
+// Breakpoints
+$breakpoint-small: 650px;
+$breakpoint-medium: 885px;
+$breakpoint-large: 1200px;
+
+body {
+  font-family: $font-family;
+  background-color: $color-light;
+  color: $color-dark;
+  margin: 0;
+  padding: 10px;
+  overflow-x: hidden;
+}
+
+a, a:link, a:active {
+  color: $coral;
+  text-decoration: underline 3px;
+  &:hover, &:focus {
+    color: $mint;
+    text-decoration: none;
+    background: $color-light;
+  }
+}
+
+header {
+  text-align: center;
+  background-color: $color-primary;
+  padding: 20px;
+  h1 {
+    font-size: 2em;
+  }
+  a, a:link, a:active {
+      color: #fff;
+      text-decoration: underline .5px $mint;
+      &:hover, &:focus {
+        color: #fff;
+        background: $coral;
+        text-decoration: underline dashed 3px $mint;
+      }
+    }
+  p {
+    font-size: 1.2em;
+    color: #fff;
+  }
+}
+// Content centering and responsiveness
+section.examples, section.options {
+  max-width: 100%;
+  margin: 0 auto;
+  margin-top: .8em;
+  padding: 20px;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+// Clock examples centering
+.examples--clock {
+  background-color: $color-light;
+  padding: 15px;
+  margin: 20px 0;
+  border-left: 5px solid $color-primary;
+  text-align: center;
+  h3 {
+    color: $color-primary;
+    font-size: 1.5em;
+  }
+  .codeblock {
+    display: flex;
+    justify-content: space-evenly;
+    flex-direction: column;
+    align-items: start;
+    max-width: 95%;
+    gap: .5em;
+    pre[data-lang]::before { 
+      content: attr(data-lang); 
+      display: block;
+      background: $mint;
+      font-family: $font-family;
+      font-style: italic;
+      padding: 3px;
+      padding-left: 10px;
+      border-radius: 2px;
+      margin: 0;
+      margin-bottom: 10px;
+    }
+    pre {
+      background-color: $color-dark;
+      color: #fff;
+      padding: 10px;
+      border-radius: 3px;
+      margin-bottom: 10px;
+      width: 100%;
+      max-width: 100%;
+      text-align: left;
+      white-space: pre-wrap;
+      tab-size: 2;
+      font-family: $code-font-family;
+    }
+  }
+}
+
+.options--list {
+  margin-top: 2em;
+  border-top: 1px solid $color-secondary;
+  h3 code {
+    background-color: $mint;
+    color: $color-dark;
+  }
+  code {
+    color: $color-secondary;
+  }
+}
+
+.countdown {
+  background: transparent;
+  color: $color-secondary;
+  padding: .5em;
+  border: 3px solid $color-secondary;
+  border-radius: 3px;
+  font-size: 1em;
+  letter-spacing: .05em;
+  font-weight: 600;
+  text-align: center;
+  padding: 1em 0;
+}
+
+.bottom-link {
+  margin-top: .7em;
+  text-align: center;
+  a, a:link, a:active {
+  color: $coral;
+  text-decoration: underline 3px;
+  &:hover, &:focus {
+    color: $mint;
+    text-decoration: none;
+    background: $color-light;
+    }
+  }
+}
+
+// Medium sized screens
+@media (min-width: $breakpoint-small) and (max-width: $breakpoint-medium) {
+  section.examples, section.options {
+    max-width: 80%;
+  }
+
+  .examples--clock {
+    .codeblock {
+      flex-direction: column;
+      max-width: 95%;
+      gap: .5em;
+    }
+
+    pre {
+      max-width: 45%;
+    }
+  }
+
+  .countdown {
+    font-size: 1.1em;
+    letter-spacing: .1em;
+  }
+}
+
+@media (min-width: $breakpoint-medium) {
+  section.examples, section.options {
+    max-width: 70%;
+  }
+
+  .examples--clock {
+    .codeblock {
+      flex-direction: row;
+      max-width: 95%;
+      gap: .5em;
+    }
+
+    pre {
+      max-width: 45%;
+    }
+  }
+
+  .countdown {
+    font-size: 1.3em;
+    letter-spacing: .1em;
+  }
+}
+
+@media (min-width: $breakpoint-large) {
+  section.examples, section.options {
+    max-width: 60%;
+  }
+
+  .examples--clock {
+    .codeblock {
+      flex-direction: row;
+      max-width: 95%;
+      gap: .5em;
+    }
+
+    pre {
+      max-width: 45%;
+    }
+  }
+
+  .countdown {
+    font-size: 1.4em;
+    letter-spacing: .1em;
+  }
+}
