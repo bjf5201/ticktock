@@ -1,7 +1,7 @@
 ticktock
 ============
 
-*ticktock* is a little yet customizable countdown made in pure JavaScript.
+*ticktock* is a little yet customizable countdown made with TypeScript using zero dependencies.
 
 ## Features
 * [Jest](https://jestjs.io/) powered-tests
