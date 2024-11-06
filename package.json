@@ -1,7 +1,7 @@
 {
   "name": "ticktock",
   "version": "1.0.0",
-  "description": "A small, customizable Vanilla JavaScript countdown with zero dependencies.",
+  "description": "A small, customizable TypeScript countdown with zero dependencies.",
   "main": "/dist/cjs/main.js",
   "module": "/dist/esm/main.js",
   "exports": {
