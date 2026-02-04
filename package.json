@@ -18,10 +18,8 @@
     "/dist"
   ],
   "scripts": {
-    "sass-dev": "sass --watch --update --style=expanded sass:dist",
-    "sass-prod": "rimraf dist/**/*.css && rimraf dist/**/*.css.map && sass --no-source-map --style=compressed sass:dist",
-    "test": "node --experimental-vm-modules node/jest/bin/jest.js --verbose --coverage --coverageDirectory=./coverage ./spec",
-    "test:watch": "node --experimental-vm-modules node/jest/bin/jest.js --watch --verbose ./spec",
+    "test": "vitest run --coverage",
+    "test:watch": "vitest",
     "build": "unbuild",
     "prepublishOnly": "pnpm run test && pnpm run build"
   },
